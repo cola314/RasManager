@@ -1,0 +1,13 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:RasManager.Resource">
+
+    <SolidColorBrush x:Key="LightBlue" Color="#A3DAFF"/>
+    <SolidColorBrush x:Key="SkyBlue" Color="#1EC0FF"/>
+    <SolidColorBrush x:Key="Blue" Color="#03A6FF"/>
+    <SolidColorBrush x:Key="DarkBlue" Color="#0080FF"/>
+    <SolidColorBrush x:Key="LightGray" Color="#F2F2F2"/>
+    <SolidColorBrush x:Key="White" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="Black" Color="#000000"/>
+    <SolidColorBrush x:Key="Green" Color="#00b050"/>
+</ResourceDictionary>

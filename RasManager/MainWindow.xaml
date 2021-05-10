@@ -1,0 +1,114 @@
+﻿<Window x:Class="RasManager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RasManager"
+        xmlns:view="clr-namespace:RasManager.View"
+        xmlns:viewModel="clr-namespace:RasManager.ViewModel"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="800" Width="1100">
+    <Window.DataContext>
+        <viewModel:MainWindowViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <!-- menu -->
+        <Grid Background="{StaticResource DarkBlue}">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock Text="Dashboard" Style="{StaticResource MenuItem}"/>
+                <TextBlock Text="File" Style="{StaticResource MenuItem}"/>
+                <TextBlock Text="Service" Style="{StaticResource MenuItem}"/>
+                <TextBlock Text="Log" Style="{StaticResource MenuItem}"/>
+                <TextBlock Text="Account" Style="{StaticResource MenuItem}"/>
+                <TextBlock Text="Settings" Style="{StaticResource MenuItem}"/>
+            </StackPanel>
+        </Grid>
+
+        <ItemsControl Grid.Row="1" ItemsSource="{Binding ComputerInfoList}">
+            <ItemsControl.Template>
+                <ControlTemplate>
+                    <ScrollViewer x:Name="ScrollViewer" Padding="{TemplateBinding Padding}">
+                        <ItemsPresenter />
+                    </ScrollViewer>
+                </ControlTemplate>
+            </ItemsControl.Template>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Grid.Row="1">
+                        <Border Height="150"
+                                Background="{StaticResource LightBlue}"
+                                Margin="20" CornerRadius="25">
+                            <StackPanel Orientation="Horizontal">
+
+                                <Image Source="{Binding OSImagePath}"
+                                       Width="100" Height="100"
+                                       Margin="25,0,25,0"/>
+
+                                <StackPanel Margin="0,25" Width="350">
+                                    <TextBlock Text="{Binding Ip}" Style="{StaticResource PlainText}"/>
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <Ellipse Width="20" Height="20" Margin="0,5,5,0"
+                                                 Fill="{DynamicResource Green}"/>
+                                        <TextBlock Text="online" Style="{StaticResource PlainText}"/>
+                                    </StackPanel>
+
+                                    <TextBlock Text="{Binding Temperature, StringFormat=temp : {0}ºC}" Style="{StaticResource PlainText}"/>
+                                </StackPanel>
+
+                                <Canvas Width="170">
+                                    <TextBlock Text="CPU" FontSize="20" Style="{StaticResource PlainText}" Canvas.Top="10"/>
+
+                                    <view:CircularProgressBar Value="{Binding CpuUsagePercentage}" Width="130" 
+                                                              Canvas.Top="10" Canvas.Left="30"
+                                                              FontSize="25"
+                                                              FgBrush="{StaticResource DarkBlue}"
+                                                              BgBrush="{StaticResource White}"
+                                                              HoleBrush="{StaticResource LightBlue}"/>
+                                </Canvas>
+
+                                <Canvas Width="190">
+                                    <TextBlock Text="RAM" FontSize="20" Style="{StaticResource PlainText}" Canvas.Top="10"/>
+
+                                    <view:CircularProgressBar Value="{Binding RamUsagePercentage}" Width="130" 
+                                                              Canvas.Top="10" Canvas.Left="30"
+                                                              FontSize="25"
+                                                              FgBrush="{StaticResource DarkBlue}"
+                                                              BgBrush="{StaticResource White}"
+                                                              HoleBrush="{StaticResource LightBlue}"/>
+                                </Canvas>
+
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Button Grid.Row="0" Content="More" Margin="0,20,0,0"
+                                            Style="{StaticResource BasicButton}"
+                                            Background="{StaticResource White}"
+                                            Foreground="{StaticResource Black}">
+
+                                    </Button>
+                                    <Button Grid.Row="1" Content="Start SSH" Margin="0,0,0,20" 
+                                            Style="{StaticResource BasicButton}"
+                                            Background="{StaticResource Blue}"
+                                            Foreground="{StaticResource White}">
+
+                                    </Button>
+                                </Grid>
+
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        
+    </Grid>
+</Window>
