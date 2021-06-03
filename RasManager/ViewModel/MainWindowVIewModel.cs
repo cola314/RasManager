@@ -8,6 +8,7 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace RasManager.ViewModel
 {
@@ -19,6 +20,11 @@ namespace RasManager.ViewModel
         public MainWindowViewModel()
         {
             task = run(token);
+
+            ComputerInfoList = new ObservableCollection<ComputerInfo>()
+            {
+                new ComputerInfo()
+            };
         }
 
         public async Task run(CancellationTokenSource token)
@@ -34,9 +40,12 @@ namespace RasManager.ViewModel
         {
             ComputerInfoService.Instance.GetComputerList((result, data) =>
             {
-                if(result == HttpStatusCode.OK)
+                if (result == HttpStatusCode.OK)
                 {
-                    ComputerInfoList = new ObservableCollection<ComputerInfo>(data);
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        ComputerInfoList = new ObservableCollection<ComputerInfo>(data);
+                    });
                 }
             });
         }

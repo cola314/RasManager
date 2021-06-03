@@ -8,6 +8,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resource/ColorDictionary.xaml"/>
                 <ResourceDictionary Source="Resource/Style.xaml"/>
+                <ResourceDictionary Source="Resource/Converter.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

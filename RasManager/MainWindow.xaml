@@ -4,6 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RasManager"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        xmlns:live="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         xmlns:view="clr-namespace:RasManager.View"
         xmlns:viewModel="clr-namespace:RasManager.ViewModel"
         mc:Ignorable="d"
@@ -16,7 +18,7 @@
             <RowDefinition Height="70"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        
+
         <!-- menu -->
         <Grid Background="{StaticResource DarkBlue}">
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
@@ -70,17 +72,20 @@
                                                               FgBrush="{StaticResource DarkBlue}"
                                                               BgBrush="{StaticResource White}"
                                                               HoleBrush="{StaticResource LightBlue}"/>
+                                    
                                 </Canvas>
 
                                 <Canvas Width="190">
                                     <TextBlock Text="RAM" FontSize="20" Style="{StaticResource PlainText}" Canvas.Top="10"/>
 
+                                    
                                     <view:CircularProgressBar Value="{Binding RamUsagePercentage}" Width="130" 
                                                               Canvas.Top="10" Canvas.Left="30"
                                                               FontSize="25"
                                                               FgBrush="{StaticResource DarkBlue}"
                                                               BgBrush="{StaticResource White}"
                                                               HoleBrush="{StaticResource LightBlue}"/>
+                                    
                                 </Canvas>
 
                                 <Grid>
