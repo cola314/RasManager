@@ -1,6 +1,10 @@
 ﻿using Newtonsoft.Json;
+using RasManager.Util;
+using RasManager.View.Popup;
+using RasManager.ViewModel.Popup;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -70,5 +74,14 @@ namespace RasManager.Model
                 return RamUsage / 100.0;
             }
         }
+
+        [JsonIgnore]
+        public DelegateCommand StartSSH
+            => new DelegateCommand((o) =>
+            {
+                var popup = new SSHPopup();
+                popup.DataContext = new SSHPopupViewModel(Ip);
+                popup.ShowDialog();
+            });
     }
 }
