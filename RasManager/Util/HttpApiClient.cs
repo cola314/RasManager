@@ -66,21 +66,28 @@ namespace RasManager.Util
                     _client.GetAsync(apiAddr)
                         .ContinueWith(response =>
                         {
-                            Trace.WriteLine($"Get Addr : {apiAddr}\nResponse : {response.Result.StatusCode}");
-
-                            if (response.Result.StatusCode == HttpStatusCode.OK)
+                            try
                             {
-                                Trace.WriteLine(response.Result.Content.ReadAsStringAsync().Result);
+                                Trace.WriteLine($"Get Addr : {apiAddr}\nResponse : {response.Result.StatusCode}");
 
-                                response.Result.Content.ReadAsStringAsync()
-                                    .ContinueWith(result =>
-                                    {
-                                        callback.Invoke(response.Result.StatusCode, result.Result.ConvertJsonToObject<K>());
-                                    });
+                                if (response.Result.StatusCode == HttpStatusCode.OK)
+                                {
+                                    Trace.WriteLine(response.Result.Content.ReadAsStringAsync().Result);
+
+                                    response.Result.Content.ReadAsStringAsync()
+                                        .ContinueWith(result =>
+                                        {
+                                            callback.Invoke(response.Result.StatusCode, result.Result.ConvertJsonToObject<K>());
+                                        });
+                                }
+                                else
+                                {
+                                    callback.Invoke(response.Result.StatusCode, default(K));
+                                }
                             }
-                            else
+                            catch(Exception e)
                             {
-                                callback.Invoke(response.Result.StatusCode, default(K));
+                                Trace.WriteLine(e.ToString());
                             }
                         });
                     break;
@@ -89,21 +96,28 @@ namespace RasManager.Util
                     _client.PostAsJsonAsync<T>(apiAddr, data)
                         .ContinueWith(response =>
                         {
-                            Trace.WriteLine($"Post Addr : {apiAddr}\nResponse : {response.Result.StatusCode}");
-
-                            if (response.Result.StatusCode == HttpStatusCode.OK)
+                            try
                             {
-                                Trace.WriteLine(response.Result.Content.ReadAsStringAsync().Result);
+                                Trace.WriteLine($"Post Addr : {apiAddr}\nResponse : {response.Result.StatusCode}");
 
-                                response.Result.Content.ReadFromJsonAsync<K>()
-                                    .ContinueWith(result =>
-                                    {
-                                        callback.Invoke(response.Result.StatusCode, result.Result);
-                                    });
+                                if (response.Result.StatusCode == HttpStatusCode.OK)
+                                {
+                                    Trace.WriteLine(response.Result.Content.ReadAsStringAsync().Result);
+
+                                    response.Result.Content.ReadFromJsonAsync<K>()
+                                        .ContinueWith(result =>
+                                        {
+                                            callback.Invoke(response.Result.StatusCode, result.Result);
+                                        });
+                                }
+                                else
+                                {
+                                    callback.Invoke(response.Result.StatusCode, default(K));
+                                }
                             }
-                            else
+                            catch(Exception e)
                             {
-                                callback.Invoke(response.Result.StatusCode, default(K));
+                                Trace.WriteLine(e.ToString());
                             }
                         });
                     break;
